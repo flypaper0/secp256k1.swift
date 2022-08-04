@@ -66,9 +66,13 @@ public extension secp256k1 {
 /// An ECDSA (Elliptic Curve Digital Signature Algorithm) Recovery Signature
 public extension secp256k1.Recovery {
     /// Recovery Signature
-    struct ECDSACompactSignature {
+    public struct ECDSACompactSignature {
         let signature: Data
         let recoveryId: Int32
+
+        public var serialized: Data {
+            return Data(signature.bytes + [UInt8(recoveryId)])
+        }
     }
 
     struct ECDSASignature: ContiguousBytes, RawSignature {
